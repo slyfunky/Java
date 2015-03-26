@@ -12,6 +12,7 @@ http://en.wikipedia.org/wiki/Regular_expression
 
 -->
 
+
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@page import="java.net.URL" %>
@@ -104,6 +105,7 @@ public static String getClima() //throws Exception
       <%= getClima() %>
    </body>
 </html>
+
 
 <!--
 
