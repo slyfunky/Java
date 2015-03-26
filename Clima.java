@@ -12,21 +12,19 @@ http://en.wikipedia.org/wiki/Regular_expression
 # Terminal
 renan@lab:~$ javac Clima.java
 renan@lab:~$ java Clima
-├ Cidade : Porto Alegre
-├ Estado : RS
-├ País : Brazil
+├ Temperatura: 24°C
+│ (Mín: 21°C, Máx: 24°C)
 │
-├ Temperatura: 30°C
-│ (Mín: 20°C, Máx: 32°C)
-│
-├ Vento 
+├ Vento
 │ (Velocidade: 5 km/h)
-│ (Direção: SSW)
+│ (Direção: E)
 │
-├ Umidade: 55%
+├ Pressão atmosférica: 1013 mbar
+├ Umidade: 83%
 ├ Visibilidade: 11 km
-├ Amanhecer: 5:18 AM
-├ Anoitecer: 7:00 PM
+├ Amanhecer: 6:30 AM
+├ Anoitecer: 6:29 PM
+// [Info]:  11:00 PM GMT-3 WED MAR 25 2015
 
 */
 
@@ -57,8 +55,7 @@ public class Clima
              
              String linha = leitor.readLine();
 
-             String regex = "Temperature:\\s(\\d+.*?).+humidity\">(\\d+.*?)<.+windspeed\">(\\d+.*?)\\sKMH.+winddir\">(.*?)\\s.+dewpoint\">(\\d+.*?)&.+heatindex\">(\\d+.*?)&.+visibility\">\\s(\\d+.*?)\\skm.+<dd>(.*?)\\sAM.+<dd>(.*?)\\sPM";
-             
+             String regex = "Temperature:\\s(\\d+.*?).+humidity\">(\\d+.*?)<.+windspeed\">(\\d+.*?)\\sKMH.+winddir\">(.*?)\\s.+pressure\">\\s(.*?)\\s</dd>.+dewpoint\">(\\d+.*?)&.+heatindex\">(\\d+.*?)&.+visibility\">\\s(\\d+.*?)\\skm.+<dd>(.*?)\\sAM.+<dd>(.*?)\\sPM.+time\">Updated:(.*?)</p>";
              Pattern p = Pattern.compile(regex);
              Matcher m = p.matcher(linha);
              
@@ -66,18 +63,22 @@ public class Clima
              {
                  if ((m.find() == true))
                  {
-                     //System.out.println("├ Array : "+m.group(0));
-                     //System.out.println("\t");
+                     //System.out.println("Array : "+m.group(0));
+                     //System.out.println("\o/");
                      System.out.println("├ Temperatura: " +m.group(1) + "°C" );
-                     System.out.println("│ (Mín: "+m.group(5) + "°C" + ", Máx: "+m.group(6) + "°C)");
+                     System.out.println("│ (Mín: "+m.group(6) + "°C" + ", Máx: "+m.group(7) + "°C)");
                      System.out.println("│");
                      System.out.println("├ Vento ");
                      System.out.println("│ (Velocidade: " +m.group(3) + " km/h)");
                      System.out.println("│ (Direção: " +m.group(4) + ")");
-                     System.out.println("│");                       System.out.println("├ Umidade: " +m.group(2) );
-                     System.out.println("├ Visibilidade: " +m.group(7) + " km");
-                     System.out.println("├ Amanhecer: " +m.group(8) + " AM");
-                     System.out.println("├ Anoitecer: " +m.group(9) + " PM");
+                     System.out.println("│");
+                     System.out.println("├ Pressão atmosférica: " +m.group(5)+ "ar" );
+                     System.out.println("├ Umidade: " +m.group(2) );
+                     System.out.println("├ Visibilidade: " +m.group(8) + " km");
+                     System.out.println("├ Amanhecer: " +m.group(9) + " AM");
+                     System.out.println("├ Anoitecer: " +m.group(10) + " PM");
+                     //System.out.println("\n");
+                     //System.out.println(" [Info]: " +m.group(11) );
                  }
              }
              
@@ -99,10 +100,22 @@ Temperature:\s(\d+.*?)
 humidity">(\d+.*?)<
 windspeed">(\d+.*?)\sKMH
 winddir">(.*?)\s
+pressure">\s(.*?)\s</dd>
 dewpoint">(\d+.*?)&
 heatindex">(\d+.*?)&
 visibility">\s(\d+.*?)\skm
 <dd>(.*?)\sAM
 <dd>(.*?)\sPM
+time">Updated:(.*?)</p>
+
+# RSS
+http://www.rssweather.com/
+Country: Brazil
+State: RS
+City: Porto Alegre
+
+# Unicode
+├
+│
 
 */
